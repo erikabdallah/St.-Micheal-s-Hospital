@@ -1,3 +1,9 @@
+/* SQL database creation for a ficitonal hospital, St. Michael's. 
+
+Skills used: Table Creation, Primary and Foreign Keys, Trigger Functions, Concatenation, Substrings, Views, Sequences, Joins, Data Insertion
+
+*/
+
 CREATE TABLE stm_employees (
 	emp_id INT PRIMARY KEY,
 	title VARCHAR(5),
@@ -171,16 +177,14 @@ FOR EACH ROW
 EXECUTE PROCEDURE icu_count();
 
 
---
-
 -- insert values into tables
 
 INSERT INTO stm_departments VALUES(nextval('dept_id_num'), 'Maintenance', 0),
-									(nextval('dept_id_num'), 'Nursing', 0),
-									(nextval('dept_id_num'), 'Food Service', 0),
-									(nextval('dept_id_num'), 'Other Medical Staff', 0),
-									(nextval('dept_id_num'), 'Administration', 0),
-									(nextval('dept_id_num'), 'Executive', 0);					
+				(nextval('dept_id_num'), 'Nursing', 0),
+				(nextval('dept_id_num'), 'Food Service', 0),
+				(nextval('dept_id_num'), 'Other Medical Staff', 0),
+				(nextval('dept_id_num'), 'Administration', 0),
+				(nextval('dept_id_num'), 'Executive', 0);					
 
 INSERT INTO stm_employees (emp_id, title, first_name, last_name, department_id, position, shift, salary) 
 	VALUES(nextval('emp_id_num'), 'Dr.', 'Johnathan', 'Davis', 1, 'Physician', 2, 75000);
@@ -190,7 +194,8 @@ INSERT INTO stm_insurance VALUES (nextval('insurance_id_num'), 'Horizon NCBSNJ',
 
 INSERT INTO stm_schedule VALUES(1000020, 4, '06/16/21', '13:00:00', '21:00:00', 3, TRUE);
 
--- create another functino and trigger for generating employee emails automatically
+
+-- create another function and trigger for generating employee emails automatically
 
 CREATE OR REPLACE FUNCTION generate_email()
 RETURNS TRIGGER
@@ -218,6 +223,7 @@ CREATE TRIGGER generate_email
 AFTER INSERT ON stm_employees
 FOR EACH ROW 
 EXECUTE PROCEDURE generate_email();
+
 
 -- create view with the week's staff schedule
 
